@@ -7,3 +7,8 @@ tar xzf nvim-macos.tar.gz
 
 ## install gruvbox colorscheme
 https://github.com/herrbischoff/iterm2-gruvbox
+
+## install nerd_fonts(hack)
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+
