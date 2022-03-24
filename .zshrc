@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/yaskour/.oh-my-zsh"
 
@@ -96,9 +93,14 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# Example aliasesG
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH=$HOME/.brew/bin:$PATH
-alias nvim="~/nvim-osx64/bin/nvim"
-alias vim="nvim"
+
+# Load Homebrew config script
+#source $HOME/.brewconfig.zsh
+#PATH+=:~/.local/nvim-osx64/bin/
+alias nvim="~/.config/nvim/nvim-osx64/bin/nvim"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
