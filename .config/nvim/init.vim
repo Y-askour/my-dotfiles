@@ -86,7 +86,7 @@ let NERDTreeDirArrows = 1
 
 
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
+      \ 'colorscheme': 'sonokai',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -97,12 +97,6 @@ let g:lightline = {
       \ }
 
 
-nmap <leader>w :w <cr>
-nmap <leader>q :q <cr>
-map <leader>/ :Commentary<CR>
-map <F2> :NERDTreeToggle<CR>
-nmap <leader>h :sp<cr>
-nmap <leader>v :vs<cr>
 
 " Imports "{{{
 " ---------------------------------------------------------------------
@@ -122,12 +116,6 @@ runtime ./maps.vim
 "}}}
 
 
-" auto complete
-au FileType php setl ofu=phpcomplete#CompletePHP
-au FileType ruby,eruby setl ofu=rubycomplete#Complete
-au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
-au FileType c setl ofu=ccomplete#CompleteCpp
-au FileType css setl ofu=csscomplete#CompleteCSS
 
 " vim theme
 
@@ -139,9 +127,8 @@ if exists("&termguicolors") && exists("&winblend")
   set wildoptions=pum
   set pumblend=5
   set background=dark
-  " Use gruvbox
-  let g:gruvbox_contrast_dark = ''
-  colorscheme gruvbox
+  " Use sonokai
+  colorscheme sonokai 
 endif
 
 "}}}
@@ -169,19 +156,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 let g:UltiSnipsEditSplit="vertical"
 
-let g:startify_custom_header = [
-      \ '        ___           ___           ___           ___           ___           ___         ', 
-      \ '       |\__\         /\  \         /\__\         /\__\         /\  \         /\  \        ',
-      \ '       |:|  |       /::\  \       /:/  /        /::|  |       /::\  \       /::\  \       ',
-      \ '       |:|  |      /:/\:\  \     /:/  /        /:|:|  |      /:/\:\  \     /:/\ \  \      ',
-      \ '       |:|__|__   /:/  \:\  \   /:/  /  ___   /:/|:|  |__   /::\~\:\  \   _\:\~\ \  \     ',
-      \ '       /::::\__\ /:/__/ \:\__\ /:/__/  /\__\ /:/ |:| /\__\ /:/\:\ \:\__\ /\ \:\ \ \__\    ',
-      \ '      /:/~~/~    \:\  \ /:/  / \:\  \ /:/  / \/__|:|/:/  / \:\~\:\ \/__/ \:\ \:\ \/__/    ',
-      \ '     /:/  /       \:\  /:/  /   \:\  /:/  /      |:/:/  /   \:\ \:\__\    \:\ \:\__\      ',
-      \ '     \/__/         \:\/:/  /     \:\/:/  /       |::/  /     \:\ \/__/     \:\/:/  /      ',
-      \ '                    \::/  /       \::/  /        /:/  /       \:\__\        \::/  /       ', 
-      \ '                     \/__/         \/__/         \/__/         \/__/         \/__/        ',  
-      \]
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'header': ['   Bookmarks'],       'type': 'bookmarks' },
@@ -192,6 +166,7 @@ let g:startify_bookmarks = [
   \ { 'z': '~/.zshrc' },
   \ { 'v': '~/.config/nvim/init.vim' },
   \ { 'x': '~/.config/nvim/plug.vim' },
+  \{'b':'/Users/yaskour/Desktop/learncpp'},
   \ { 'w': '/tmp/vimwiki' },
   \ ]
 let b:lion_squeeze_spaces = 1
@@ -202,3 +177,33 @@ augroup ScrollbarInit
   autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()
   autocmd WinLeave,BufLeave,BufWinLeave,FocusLost            * silent! lua require('scrollbar').clear()
 augroup end
+
+let b:sonokai_style = 'shusia'
+
+function! CloseHiddenBuffers()
+    " >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    " close 
+    " close any buffers hidden
+    " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    let open_buffers = []
+
+    for i in range(tabpagenr('$'))
+        call extend(open_buffers, tabpagebuflist(i + 1))
+    endfor
+
+    for num in range(1, bufnr("$") + 1)
+        if buflisted(num) && index(open_buffers, num) == -1
+            exec "bdelete ".num
+        endif
+    endfor
+endfunction
+
+au BufEnter * call CloseHiddenBuffers()
+" Vim Wiki
+
+let wiki = {}
+let wiki.path = '~/vw_tmp/wiki'
+let wiki.path_html = '~/vw_tmp/wiki/html'
+let wiki.syntax = 'default'
+let wiki.ext = '.wiki'
+let g:vimwiki_list = [wiki]
