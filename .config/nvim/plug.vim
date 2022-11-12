@@ -1,28 +1,48 @@
 call plug#begin()
-  Plug 'preservim/nerdtree' |
-            \ Plug 'Xuyuanp/nerdtree-git-plugin'
+"------------ complete () {} \""
 	Plug 'cohama/lexima.vim'
-  Plug 'morhetz/gruvbox' 
-  Plug 'itchyny/lightline.vim'
+
+  " transparent
   Plug 'tribela/vim-transparent'
+
+  Plug 'itchyny/lightline.vim'
   Plug 'christoomey/vim-system-copy'
-  Plug 'ryanoasis/vim-devicons'
+  
+  " ------ git
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
+
+  " ---- completor engine
   Plug 'maralla/completor.vim'
+
+  "------------ snippets
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
-  Plug 'dense-analysis/ale'
-  Plug 'mhinz/vim-startify'
-  Plug 'tpope/vim-surround'
-  Plug 'tommcdo/vim-lion'
   Plug 'sheerun/vim-polyglot'
-  Plug 'lewis6991/spellsitter.nvim'
-  Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+
+  "---- compiling the code and checking the errors
+  Plug 'dense-analysis/ale'
+
+  " start window
+  Plug 'mhinz/vim-startify'
+
+  " icons
   Plug 'kyazdani42/nvim-web-devicons'
+
+  " tabs
   Plug 'romgrk/barbar.nvim'
-  Plug 'akinsho/toggleterm.nvim'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-  Plug 'Xuyuanp/scrollbar.nvim'
+
+  " training
+  Plug 'ThePrimeagen/vim-be-good'
+
+  " finder
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+
+  " theme
+  Plug 'sainnhe/sonokai'
+
+  "wiki
+  Plug 'vimwiki/vimwiki'
+
 call plug#end()
