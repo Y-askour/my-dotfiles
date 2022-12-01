@@ -44,5 +44,8 @@ call plug#begin()
 
   "wiki
   Plug 'vimwiki/vimwiki'
-
+  Plug 'pbondoer/vim-42header'
+  Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+" or                                , { 'branch': '0.1.x' }
 call plug#end()
