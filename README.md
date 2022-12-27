@@ -29,3 +29,14 @@ brew tap homebrew/cask-fonts
 
 brew install --cask font-hack-nerd-font
 ```
+
+## install gdb
+
+```
+wget ftp://sourceware.org/pub/gdb/snapshots/current/gdb-weekly-8.2.50.20190226.tar.xz
+untar gdb-weekly-8.2.50.20190226.tar.xz
+gdb-8.2.50.20190226
+./configure --prefix=$HOME/gdb
+make
+make install
+```
