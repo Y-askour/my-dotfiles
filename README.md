@@ -39,4 +39,6 @@ gdb-8.2.50.20190226
 ./configure --prefix=$HOME/gdb
 make
 make install
+
+https://timnash.co.uk/getting-gdb-to-semi-reliably-work-on-mojave-macos/
 ```
