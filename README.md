@@ -18,9 +18,9 @@ tar xzf nvim-macos.tar.gz
 ./nvim-osx64/bin/nvim
 ```
 
-## install gruvbox colorscheme
+## install sonokai colorscheme
 ```
-https://github.com/herrbischoff/iterm2-gruvbox
+https://github.com/jose-elias-alvarez/sonokai-iterm2
 ```
 ## install nerd_fonts(hack)
 
