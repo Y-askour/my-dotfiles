@@ -1,3 +1,3 @@
+require('config.packer')
 require('config.remap')
 require('config.color')
-require('config.packer')

@@ -1,72 +1,82 @@
-local lsp = require("lsp-zero")
+-- load snippets
 
-lsp.preset("recommended")
+require("luasnip.loaders.from_vscode").lazy_load()
 
-lsp.ensure_installed({
-})
-
--- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
-})
-
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
+-- lsp
+local lsp = require('lsp-zero')
 
 lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
-
-  if client.name == "eslint" then
-      vim.cmd.LspStop('eslint')
-      return
-  end
-
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-  vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp.default_keymaps({buffer = bufnr})
 end)
 
-lsp.setup()
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  -- Replace the language servers listed here 
+  -- with the ones you want to install
+  ensure_installed = {'tsserver', 'rust_analyzer'},
+  handlers = {
+    lsp.default_setup,
+  },
+})
 
-vim.diagnostic.config({
-    virtual_text = true,
+local cmp = require('cmp')
+--
+--
+local cmp = require('cmp')
+local cmp_select_opts = {behavior = cmp.SelectBehavior.Select}
+
+cmp.setup({
+  sources = {
+    {name = 'nvim_lsp'},
+    {name = 'luasnip'},
+  },
+  mapping = {
+    ['<CR>'] = cmp.mapping.confirm({select = true}),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<Up>'] = cmp.mapping.select_prev_item(cmp_select_opts),
+    ['<Down>'] = cmp.mapping.select_next_item(cmp_select_opts),
+    ['<C-p>'] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item(cmp_select_opts)
+      else
+        cmp.complete()
+      end
+    end),
+    ['<C-n>'] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_next_item(cmp_select_opts)
+      else
+        cmp.complete()
+      end
+    end),
+  },
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  window = {
+    documentation = {
+      max_height = 15,
+      max_width = 60,
+    }
+  },
+  formatting = {
+    fields = {'abbr', 'menu', 'kind'},
+    format = function(entry, item)
+      local short_name = {
+        nvim_lsp = 'LSP',
+        nvim_lua = 'nvim'
+      }
+
+      local menu_name = short_name[entry.source.name] or entry.source.name
+
+      item.menu = string.format('[%s]', menu_name)
+      return item
+    end,
+  },
 })
