@@ -3,12 +3,13 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -102,3 +103,12 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/.brew/bin:$PATH
 alias vim="$HOME/my_bin/nvim-macos/bin/nvim"
 
+####10108bleach10108####
+alias storage="bash /Users/yaskour/bleach_42/check_space.bash"
+alias bleach="bash /Users/yaskour/bleach_42/help.bash"
+alias unbleach="bash /Users/yaskour/bleach_42/unbleach.bash"
+alias bdocker="bash /Users/yaskour/bleach_42/init_docker.bash"
+alias bclean="bash /Users/yaskour/bleach_42/cleaner.bash"
+alias bcleanfull="bash /Users/yaskour/bleach_42/cleanAllAppsData.bash"
+/bin/bash /Users/yaskour/bleach_42/cleaner.bash
+####10108bleach10108####
