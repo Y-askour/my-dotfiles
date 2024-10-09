@@ -11,8 +11,6 @@ return require('packer').startup(function(use)
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
-  use 'pbondoer/vim-42header'
-
   use 'sainnhe/sonokai'
 
   use 'itchyny/lightline.vim'
@@ -54,7 +52,12 @@ return require('packer').startup(function(use)
 
 		-- snippets collection
        {'rafamadriz/friendly-snippets'},
-    }
+    },
+		-- dap 
+	use {
+    "mfussenegger/nvim-dap",
+    "jay-babu/mason-nvim-dap.nvim",
+}
   }
   use 'TheZoq2/neovim-auto-autoread'
 end)

@@ -1,5 +1,4 @@
 -- load snippets
-
 require("luasnip.loaders.from_vscode").lazy_load()
 
 -- lsp
@@ -15,7 +14,7 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
   -- Replace the language servers listed here 
   -- with the ones you want to install
-  ensure_installed = {'tsserver', 'rust_analyzer'},
+  ensure_installed = {'rust_analyzer'},
   handlers = {
     lsp.default_setup,
   },
@@ -33,7 +32,7 @@ cmp.setup({
     {name = 'luasnip'},
   },
   mapping = {
-    ['<CR>'] = cmp.mapping.confirm({select = true}),
+    ['<C-y>'] = cmp.mapping.confirm({select = true}),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
